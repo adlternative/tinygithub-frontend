@@ -1,17 +1,19 @@
 <template>
   <div class="user-home">
     <UserWidget :username="username" :email="email" />
-    <!-- 其他用户主页内容 -->
+    <RepositoriesWidget />
   </div>
 </template>
 
 <script>
 import UserWidget from '@/components/UserWidget.vue';
+import RepositoriesWidget from '@/components/RepositoriesWidget.vue';
 
 export default {
   name: 'UserHome',
   components: {
     UserWidget,
+    RepositoriesWidget,
   },
   computed: {
     username() {
@@ -27,6 +29,6 @@ export default {
 
 <style scoped>
 .user-home {
-  /* 用户主页样式 */
+  display: flex;
 }
 </style>

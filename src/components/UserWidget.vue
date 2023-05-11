@@ -31,9 +31,6 @@ export default {
   bottom: 0;
   /* 将高度改为 bottom，占满整个屏幕 */
   width: 20%;
-  background-color: rgb(204, 245, 233);
-  border: 1px solid #075dfc;
-  border-radius: 4px;
 }
 
 .user-info {
