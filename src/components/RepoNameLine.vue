@@ -1,6 +1,8 @@
 <template>
   <div class="repo-name">
-    <span class="username">{{ username }}</span>/<span class="reponame">{{ reponame }}</span>
+    <router-link class="username"
+      :to="{ name: 'user', params: { username: username } }">{{ username }}</router-link>/<router-link class="reponame"
+      :to="{ name: 'repo', params: { username: username, reponame: reponame } }">{{ reponame }}</router-link>
   </div>
 </template>
 
@@ -33,5 +35,4 @@ export default {
 .reponame {
   font-weight: bold;
   color: #0366d6;
-}
-</style>
+}</style>
