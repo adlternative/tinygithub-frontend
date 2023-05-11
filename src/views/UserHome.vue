@@ -1,13 +1,15 @@
 <template>
-  <div class="user-home">
+  <div v-if="isLoaded" class="user-home">
     <UserWidget :username="username" :email="email" />
-    <RepositoriesWidget />
+    <RepositoriesWidget :username="username" />
   </div>
 </template>
 
 <script>
 import UserWidget from '@/components/UserWidget.vue';
 import RepositoriesWidget from '@/components/RepositoriesWidget.vue';
+import axios from 'axios';
+import router from '@/router';
 
 export default {
   name: 'UserHome',
@@ -15,15 +17,50 @@ export default {
     UserWidget,
     RepositoriesWidget,
   },
-  computed: {
-    username() {
-      return this.$route.params.username;
-    },
-    email() {
-      // 这里可以从 API 或其他数据源获取用户的邮箱
-      return 'user@example.com';
-    },
+  data() {
+    return {
+      email: null,
+      username: null,
+      isLoaded: false,
+    };
   },
+
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchData()
+      },
+      // 组件创建完后获取数据，
+      // 此时 data 已经被 observed 了
+      { immediate: true }
+    )
+  },
+  methods: {
+    fetchData() {
+      // 发送 API 请求获取用户数据
+      axios.get(`/api/v2/users/${this.$route.params.username}`)
+        .then(response => {
+          // 从响应中获取邮箱数据
+          this.email = response.data.email;
+          this.username = response.data.name;
+          this.isLoaded = true;
+        })
+        .catch(error => {
+          if (error.response) {
+            if (error.response.status === 404) {
+              // 路由跳转到 NotFound 页面
+              router.push('/404');
+            } else {
+              this.$emit('show-error', error.response.data.error)
+            }
+          } else {
+            this.$emit('show-error', error.message)
+          }
+          this.isLoaded = true;
+        });
+    }
+  }
 };
 </script>
 

@@ -3,7 +3,7 @@
     <div class="repositories-header">Repositories</div>
     <div class="repositories-list">
       <div class="repository-widget" v-for="(repo, index) in repositories" :key="index">
-        <RepositoryWidget :name="repo.name" :description="repo.description" />
+        <RepositoryWidget :name="repo.Name" :description="repo.Desc" />
       </div>
     </div>
   </div>
@@ -11,6 +11,8 @@
 
 <script>
 import RepositoryWidget from '@/components/RepositoryWidget.vue';
+import axios from 'axios';
+import router from '@/router';
 
 export default {
   name: 'RepositoriesWidget',
@@ -19,22 +21,46 @@ export default {
   },
   data() {
     return {
-      repositories: [
-        {
-          name: 'my-first-repo',
-          description: 'This is my first repository',
-        },
-        {
-          name: 'my-second-repo',
-          description: 'This is my second repository',
-        },
-        {
-          name: 'my-third-repo',
-          description: 'This is my third repository',
-        },
-      ],
+      isLoaded: false,
+      repositories: [],
     };
   },
+
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchData()
+      },
+      // 组件创建完后获取数据，
+      // 此时 data 已经被 observed 了
+      { immediate: true }
+    )
+  },
+  methods: {
+    fetchData() {
+      // 发送 API 请求获取用户数据
+      axios.get(`/api/v2/users/${this.$route.params.username}`, { params: { tab: 'repositories' } })
+        .then(response => {
+          // 从响应中获取邮箱数据
+          this.isLoaded = true;
+          this.repositories = response.data.repositories
+        })
+        .catch(error => {
+          if (error.response) {
+            if (error.response.status === 404) {
+              // 路由跳转到 NotFound 页面
+              router.push('/404');
+            } else {
+              this.$emit('show-error', error.response.data.error)
+            }
+          } else {
+            this.$emit('show-error', error.message)
+          }
+          this.isLoaded = true;
+        });
+    }
+  }
 };
 </script>
 
