@@ -1,7 +1,8 @@
 <template>
   <div class="repository">
     <div class="repository-info">
-      <div class="repository-name">{{ name }}</div>
+      <router-link :to="{ name: 'repo', params: { username: username, reponame: name } }"
+        class="repository-name">{{ name }}</router-link>
       <div class="repository-description">{{ description }}</div>
     </div>
   </div>
@@ -16,6 +17,10 @@ export default {
       required: true,
     },
     description: {
+      type: String,
+      required: true,
+    },
+    username: {
       type: String,
       required: true,
     },
@@ -37,6 +42,9 @@ export default {
 .repository-name {
   font-weight: bold;
   font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  cursor: pointer;
 }
 
 .repository-description {

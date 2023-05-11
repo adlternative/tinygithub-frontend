@@ -6,6 +6,7 @@ import HomeView from '../views/HomeView.vue'
 import NotFound from '../views/NotFound.vue'
 import LoginView from '../views/LoginView.vue'
 import UserHome from '../views/UserHome.vue'
+import RepoView from '../views/RepoView.vue'
 
 const routes = [{
     path: '/',
@@ -25,7 +26,11 @@ const routes = [{
         name: 'user',
         component: UserHome
       },
-
+      {
+        path: ':reponame',
+        name: 'repo',
+        component: RepoView
+      }
     ],
   },
   {

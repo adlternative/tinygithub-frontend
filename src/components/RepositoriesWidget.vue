@@ -3,7 +3,7 @@
     <div class="repositories-header">Repositories</div>
     <div class="repositories-list">
       <div class="repository-widget" v-for="(repo, index) in repositories" :key="index">
-        <RepositoryWidget :name="repo.Name" :description="repo.Desc" />
+        <RepositoryWidget :username="username" :name="repo.Name" :description="repo.Desc" />
       </div>
     </div>
   </div>
@@ -23,6 +23,7 @@ export default {
     return {
       isLoaded: false,
       repositories: [],
+      username: ""
     };
   },
 
@@ -39,6 +40,8 @@ export default {
   },
   methods: {
     fetchData() {
+      this.username = this.$route.params.username
+
       // 发送 API 请求获取用户数据
       axios.get(`/api/v2/users/${this.$route.params.username}`, { params: { tab: 'repositories' } })
         .then(response => {
