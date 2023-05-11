@@ -5,6 +5,7 @@ import {
 import HomeView from '../views/HomeView.vue'
 import NotFound from '../views/NotFound.vue'
 import LoginView from '../views/LoginView.vue'
+import UserHome from '../views/UserHome.vue'
 
 const routes = [{
     path: '/',
@@ -15,6 +16,17 @@ const routes = [{
     path: '/login',
     name: 'login',
     component: LoginView,
+  },
+  {
+    path: '/:username',
+    name: 'user-parent',
+    children: [{
+        path: '',
+        name: 'user',
+        component: UserHome
+      },
+
+    ],
   },
   {
     path: '/:catchAll(.*)',
