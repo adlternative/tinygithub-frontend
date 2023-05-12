@@ -2,12 +2,10 @@
   <div class="git-tree">
     <div v-if="!isLoaded">Loading...</div>
     <div v-else>
-      <div class="git-tree-header"> {{ treepath }}</div>
+      <div class="git-tree-header"> Path: {{ treepath }}</div>
       <div class="git-tree-list">
         <div class="git-tree-entry" v-for="(entry, index) in treeEntries" :key="index">
-          <div class="git-tree-path">{{ entry.path }}</div>
-          <div class="git-tree-message-header">{{ entry.last_commit.header }}</div>
-          <div class="git-tree-date">{{ entry.last_commit.date }}</div>
+          <TreeEntry :entry="entry" />
         </div>
       </div>
     </div>
@@ -16,7 +14,7 @@
 
 <script>
 import axios from 'axios';
-
+import TreeEntry from '@/components/TreeEntry.vue'
 export default {
   name: 'GitBlameTree',
   props: {
@@ -33,6 +31,7 @@ export default {
       required: true,
     },
   },
+  components: { TreeEntry },
   data() {
     return {
       isLoaded: false,
@@ -65,48 +64,27 @@ export default {
 .git-tree {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  margin-left: 50px;
 }
 
 .git-tree-header {
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .git-tree-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .git-tree-entry {
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.git-tree-path {
-  flex: 1;
-  text-align: left;
-  margin-right: 10px;
-  overflow: hidden; /* 控制文本溢出 */
-  white-space: nowrap; /* 控制文本不换行 */
-  text-overflow: ellipsis; /* 当文本溢出时，显示省略号 */
-}
-
-.git-tree-message-header {
-  flex: 1;
-  text-align: left;
-  overflow: hidden; /* 控制文本溢出 */
-  white-space: nowrap; /* 控制文本不换行 */
-  text-overflow: ellipsis; /* 当文本溢出时，显示省略号 */
-}
-
-.git-tree-date {
-  flex: 1;
-  text-align: right;
-  margin-left: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 0;
 }
 </style>

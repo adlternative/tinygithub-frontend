@@ -1,7 +1,9 @@
 <template>
-  <div class="repo-view">
+  <div class="repo-view-container">
     <div class="repo-name-line">
       <repo-name-line :username="username" :reponame="reponame" />
+    </div>
+    <div class="git-blam-tree">
       <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" />
     </div>
   </div>
@@ -28,32 +30,22 @@ export default {
 </script>
 
 <style scoped>
-.repo-view {
-  position: relative;
-  padding-top: 80px;
+.repo-view-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 100px;
+  margin-top: 100px;
+  margin-right: 40%;
+}
+
+.git-blame-tree {
+  flex-grow: 1;
 }
 
 .repo-name-line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  max-width: calc(100% - 40px);
-  padding: 20px;
-  border-radius: 4px;
-  font-size: 18px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.repo-name-line repo-name {
-  font-size: 24px;
-}
-
-@media screen and (max-height: 880px) {
-  .repo-name-line {
-    top: 80px;
-  }
+  flex-grow: 1;
+  left: 50px;
+  margin-left: 50px;
 }
 </style>

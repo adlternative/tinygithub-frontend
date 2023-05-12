@@ -1,7 +1,7 @@
 <template>
   <div class="repo-name">
     <router-link class="username"
-      :to="{ name: 'user', params: { username: username } }">{{ username }}</router-link>/<router-link class="reponame"
+      :to="{ name: 'user', params: { username: username } }">{{ username }}</router-link> / <router-link class="reponame"
       :to="{ name: 'repo', params: { username: username, reponame: reponame } }">{{ reponame }}</router-link>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
 
 <style scoped>
 .repo-name {
-  font-size: 24px;
+  font-size: 27px;
 }
 
 .username {
