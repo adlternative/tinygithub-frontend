@@ -2,17 +2,19 @@
   <div class="repo-view">
     <div class="repo-name-line">
       <repo-name-line :username="username" :reponame="reponame" />
+      <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" />
     </div>
-    <!-- 其他内容 -->
   </div>
 </template>
 
 <script>
+import GitBlameTree from '@/components/GitBlameTree.vue';
 import RepoNameLine from '@/components/RepoNameLine.vue';
 export default {
   name: 'RepoView',
   components: {
     RepoNameLine,
+    GitBlameTree,
   },
   computed: {
     username() {
