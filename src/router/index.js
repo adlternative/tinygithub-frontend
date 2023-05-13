@@ -7,6 +7,7 @@ import NotFound from '../views/NotFound.vue'
 import LoginView from '../views/LoginView.vue'
 import UserHome from '../views/UserHome.vue'
 import RepoView from '../views/RepoView.vue'
+import TreeView from '../views/TreeView.vue'
 
 const routes = [{
     path: '/',
@@ -28,8 +29,17 @@ const routes = [{
       },
       {
         path: ':reponame',
-        name: 'repo',
-        component: RepoView
+        children: [{
+            path: '',
+            name: 'repo',
+            component: RepoView,
+          },
+          {
+            path: 'tree/:treepath*',
+            name: 'tree',
+            component: TreeView,
+          },
+        ],
       }
     ],
   },

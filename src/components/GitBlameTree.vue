@@ -2,7 +2,7 @@
   <div class="git-tree">
     <div v-if="!isLoaded">Loading...</div>
     <div v-else>
-      <div class="git-tree-header"> Path: {{ treepath }}</div>
+      <div class="git-tree-header"> Path: {{ formatTreePath(treepath) }}</div>
       <div class="git-tree-list">
         <div class="git-tree-entry" v-for="(entry, index) in treeEntries" :key="index">
           <TreeEntry :entry="entry" />
@@ -27,7 +27,7 @@ export default {
       required: true,
     },
     treepath: {
-      type: String,
+      type: [String, Array],
       required: true,
     },
   },
@@ -43,10 +43,20 @@ export default {
     this.fetchData();
   },
   methods: {
+    formatTreePath(x) {
+      if (Array.isArray(x)) {
+        // 是字符串数组,则调用 join 方法返回字符串
+        return x.join('/')
+      } else {
+        // 直接返回字符串
+        return x
+      }
+    },
+
     fetchData() {
       axios
         .get(`/api/v2/${this.username}/${this.reponame}/tree`, {
-          params: { path: this.treepath },
+          params: { path: this.formatTreePath(this.treepath) },
         })
         .then((response) => {
           this.isLoaded = true;
