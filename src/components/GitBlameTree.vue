@@ -14,6 +14,7 @@
 
 <script>
 import axios from 'axios';
+import router from '@/router';
 import TreeEntry from '@/components/TreeEntry.vue'
 export default {
   name: 'GitBlameTree',
@@ -40,7 +41,15 @@ export default {
   },
 
   created() {
-    this.fetchData();
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchData()
+      },
+      // 组件创建完后获取数据，
+      // 此时 data 已经被 observed 了
+      { immediate: true }
+    )
   },
   methods: {
     formatTreePath(x) {
@@ -54,6 +63,8 @@ export default {
     },
 
     fetchData() {
+      this.isLoaded = false;
+
       axios
         .get(`/api/v2/${this.username}/${this.reponame}/tree`, {
           params: { path: this.formatTreePath(this.treepath) },
@@ -63,7 +74,17 @@ export default {
           this.treeEntries = response.data.tree_entries;
         })
         .catch((error) => {
-          console.error(error);
+          if (error.response) {
+            if (error.response.status === 404) {
+              // 路由跳转到 NotFound 页面
+              router.push('/404');
+            } else {
+              this.$emit('show-error', error.response.data.error)
+            }
+          } else {
+            this.$emit('show-error', error.message)
+          }
+          this.isLoaded = true;
         });
     },
   },

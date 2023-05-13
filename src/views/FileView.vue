@@ -1,11 +1,14 @@
 <template>
-  <div class="git-blob-path"> Path: {{ formatBlobPath(blobpath) }}</div>
+  <div v-if="!isLoaded">Loading...</div>
+  <div v-else>
+    <div class="git-blob-path"> Path: {{ formatBlobPath(blobpath) }}</div>
 
-  <div class="file-content">
-    <image-component v-if="fileType === 'image'" :data="fileBlob" />
-    <text-component v-else-if="fileType === 'text'" :data="fileBlob" />
-    <div v-else>
-      Unsupported file type.
+    <div class="file-content">
+      <image-component v-if="fileType === 'image'" :data="fileBlob" />
+      <text-component v-else-if="fileType === 'text'" :data="fileBlob" />
+      <div v-else>
+        Unsupported file type.
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +18,7 @@
 import ImageComponent from '@/components/ImageComponent.vue'
 import TextComponent from '@/components/TextComponent.vue';
 import axios from 'axios';
+import router from '@/router';
 
 export default {
   name: 'FileView',
@@ -36,28 +40,52 @@ export default {
 
   data() {
     return {
+      isLoaded: false,
       fileType: '',
       fileData: '',
     }
   },
   created() {
-    axios.get(`/api/v2/${this.username}/${this.reponame}/blob`, {
-      params: { path: this.formatBlobPath(this.blobpath) },
-      responseType: 'arraybuffer'
-    })
-      .then(response => {
-        const contentType = response.headers['content-type'];
-        const arrayBuffer = response.data;
-        const fileBlob = new Blob([arrayBuffer], { type: contentType });
-        this.fileBlob = fileBlob;
-        this.fileType = this.getFileType(contentType);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchData()
+      },
+      // 组件创建完后获取数据，
+      // 此时 data 已经被 observed 了
+      { immediate: true }
+    )
   },
-
   methods: {
+    fetchData() {
+      this.isLoaded = false;
+
+      axios.get(`/api/v2/${this.username}/${this.reponame}/blob`, {
+        params: { path: this.formatBlobPath(this.blobpath) },
+        responseType: 'arraybuffer'
+      })
+        .then(response => {
+          this.isLoaded = true;
+          const contentType = response.headers['content-type'];
+          const arrayBuffer = response.data;
+          const fileBlob = new Blob([arrayBuffer], { type: contentType });
+          this.fileBlob = fileBlob;
+          this.fileType = this.getFileType(contentType);
+        })
+        .catch(error => {
+          if (error.response) {
+            if (error.response.status === 404) {
+              // 路由跳转到 NotFound 页面
+              router.push('/404');
+            } else {
+              this.$emit('show-error', error.response.data.error)
+            }
+          } else {
+            this.$emit('show-error', error.message)
+          }
+          this.isLoaded = true;
+        });
+    },
     getFileType(contentType) {
       if (contentType.startsWith('image/')) {
         return 'image';
