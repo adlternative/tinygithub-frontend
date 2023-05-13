@@ -8,6 +8,7 @@ import LoginView from '../views/LoginView.vue'
 import UserHome from '../views/UserHome.vue'
 import RepoView from '../views/RepoView.vue'
 import TreeView from '../views/TreeView.vue'
+import BlobView from '../views/BlobView.vue'
 
 const routes = [{
     path: '/',
@@ -38,6 +39,11 @@ const routes = [{
             path: 'tree/:treepath*',
             name: 'tree',
             component: TreeView,
+          },
+          {
+            path: 'blob/:blobpath*',
+            name: 'blob',
+            component: BlobView,
           },
         ],
       }
