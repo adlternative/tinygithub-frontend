@@ -47,7 +47,7 @@ export default {
   },
   created() {
     this.$watch(
-      () => this.$route.params,
+      () => this.$route.blobpath,
       () => {
         this.fetchData()
       },

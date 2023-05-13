@@ -5,7 +5,7 @@
       <div class="git-tree-header"> Path: {{ formatTreePath(treepath) }}</div>
       <div class="git-tree-list">
         <div class="git-tree-entry" v-for="(entry, index) in treeEntries" :key="index">
-          <TreeEntry :entry="entry" />
+          <TreeEntry :entry="entry" :username="username" :reponame="reponame" :basetreepath="treepath" />
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@ export default {
 
   created() {
     this.$watch(
-      () => this.$route.params,
+      () => this.treepath,
       () => {
         this.fetchData()
       },
@@ -63,6 +63,7 @@ export default {
     },
 
     fetchData() {
+
       this.isLoaded = false;
 
       axios
