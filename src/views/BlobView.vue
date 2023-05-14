@@ -4,7 +4,7 @@
       <repo-name-line :username="username" :reponame="reponame" />
     </div>
     <div class="file-view">
-      <file-view :username="username" :reponame="reponame" :blobpath="blobpath"/>
+      <file-view :username="username" :reponame="reponame" :blobpath="blobpath" :revision="revision"/>
     </div>
   </div>
 </template>
@@ -28,6 +28,9 @@ export default {
     blobpath() {
       return this.$route.params.blobpath;
     },
+    revision() {
+      return this.$route.query.revision
+    }
   },
 };
 </script>

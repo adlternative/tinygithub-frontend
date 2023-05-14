@@ -35,6 +35,9 @@ export default {
       type: [String, Array],
       required: true,
     },
+    revision: {
+      type: String,
+    },
   },
   components: { ImageComponent, TextComponent },
 
@@ -61,7 +64,10 @@ export default {
       this.isLoaded = false;
 
       axios.get(`/api/v2/${this.username}/${this.reponame}/blob`, {
-        params: { path: this.formatBlobPath(this.blobpath) },
+        params: {
+          path: this.formatBlobPath(this.blobpath),
+          revision: this.revision
+        },
         responseType: 'arraybuffer'
       })
         .then(response => {

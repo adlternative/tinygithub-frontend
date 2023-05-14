@@ -4,7 +4,7 @@
       <repo-name-line :username="username" :reponame="reponame" />
     </div>
     <div class="git-blam-tree">
-      <git-blame-tree :username="username" :reponame="reponame" :treepath="treepath" />
+      <git-blame-tree :username="username" :reponame="reponame" :treepath="treepath" :revision="revision" />
     </div>
   </div>
 </template>
@@ -28,6 +28,9 @@ export default {
     treepath() {
       return this.$route.params.treepath;
     },
+    revision() {
+      return this.$route.query.revision
+    }
   },
 };
 </script>
@@ -40,6 +43,7 @@ export default {
   top: 100px;
   margin-top: 100px;
   margin-right: 40%;
+  margin-left: 5%;
 }
 
 .git-blame-tree {
@@ -49,6 +53,5 @@ export default {
 .repo-name-line {
   flex-grow: 1;
   left: 50px;
-  margin-left: 50px;
 }
 </style>

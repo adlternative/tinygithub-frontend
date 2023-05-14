@@ -30,6 +30,9 @@ export default {
     basetreepath: {
       type: [String, Array],
       required: true
+    },
+    revision: {
+      type: String,
     }
   },
   computed: {
@@ -51,6 +54,9 @@ export default {
             username: this.username,
             reponame: this.reponame,
             blobpath: newTreePath
+          },
+          query: {
+            revision: this.revision
           }
         };
       } else {
@@ -60,6 +66,9 @@ export default {
             username: this.username,
             reponame: this.reponame,
             treepath: newTreePath
+          },
+          query: {
+            revision: this.revision
           }
         };
       }

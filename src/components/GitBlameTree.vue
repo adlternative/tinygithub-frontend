@@ -5,7 +5,7 @@
       <div class="git-tree-header"> Path: {{ formatTreePath(treepath) }}</div>
       <div class="git-tree-list">
         <div class="git-tree-entry" v-for="(entry, index) in treeEntries" :key="index">
-          <TreeEntry :entry="entry" :username="username" :reponame="reponame" :basetreepath="treepath" />
+          <TreeEntry :entry="entry" :username="username" :reponame="reponame" :basetreepath="treepath" :revision="revision" />
         </div>
       </div>
     </div>
@@ -31,6 +31,10 @@ export default {
       type: [String, Array],
       required: true,
     },
+    revision: {
+      type: String,
+    },
+
   },
   components: { TreeEntry },
   data() {
@@ -68,7 +72,10 @@ export default {
 
       axios
         .get(`/api/v2/${this.username}/${this.reponame}/tree`, {
-          params: { path: this.formatTreePath(this.treepath) },
+          params: {
+            path: this.formatTreePath(this.treepath),
+            revision: this.revision,
+          },
         })
         .then((response) => {
           this.isLoaded = true;

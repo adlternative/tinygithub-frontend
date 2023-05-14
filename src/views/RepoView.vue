@@ -12,7 +12,7 @@
         <revisions-selection :username="username" :reponame="reponame" />
       </div>
       <div class="git-blame-tree">
-        <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" />
+        <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" :revision="revision" />
       </div>
     </div>
   </div>
@@ -36,12 +36,17 @@ export default {
   data() {
     return {
       isLoaded: false,
+      revision: '',
     }
   },
   created() {
     this.$watch(
-      () => this.$route.params,
+      () => ({
+        params: this.$route.params,
+        query: this.$route.query,
+      }),
       () => {
+        this.revision = this.$route.query.revision;
         this.fetchData()
       },
       // 组件创建完后获取数据，
@@ -116,5 +121,4 @@ export default {
 .revisions-selection-container {
   margin-top: 20px;
 }
-
 </style>
