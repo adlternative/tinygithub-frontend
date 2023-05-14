@@ -27,12 +27,13 @@ export default {
   },
   data() {
     return {
+      gitCloneURL: window.GitCloneURL,
       showDropdown: false
     };
   },
   computed: {
     httpLink() {
-      return `http://localhost:8083/${this.username}/${this.reponame}.git`;
+      return `${this.gitCloneURL}/${this.username}/${this.reponame}.git`;
     }
   },
   methods: {
