@@ -96,7 +96,6 @@ export default {
 .git-tree {
   display: flex;
   flex-direction: column;
-  margin-left: 50px;
 }
 
 .git-tree-header {

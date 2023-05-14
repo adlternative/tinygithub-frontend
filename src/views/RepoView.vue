@@ -8,6 +8,9 @@
       <div class="about-section">
         <about-section :description="repository.Desc" />
       </div>
+      <div class="revisions-selection-container">
+        <revisions-selection :username="username" :reponame="reponame" />
+      </div>
       <div class="git-blame-tree">
         <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" />
       </div>
@@ -21,12 +24,14 @@ import router from '@/router';
 import GitBlameTree from '@/components/GitBlameTree.vue';
 import RepoNameLine from '@/components/RepoNameLine.vue';
 import AboutSection from '@/components/AboutSection.vue';
+import RevisionsSelection from '@/components/RevisionsSelection.vue';
 export default {
   name: 'RepoView',
   components: {
     RepoNameLine,
     GitBlameTree,
     AboutSection,
+    RevisionsSelection,
   },
   data() {
     return {
@@ -88,6 +93,7 @@ export default {
   top: 100px;
   margin-top: 100px;
   margin-right: 40%;
+  margin-left: 5%;
 }
 
 .git-blame-tree {
@@ -96,8 +102,6 @@ export default {
 
 .repo-name-line {
   flex-grow: 1;
-  left: 50px;
-  margin-left: 50px;
 }
 
 .about-section {
@@ -108,4 +112,9 @@ export default {
   max-width: 50%;
   bottom: 30px;
 }
+
+.revisions-selection-container {
+  margin-top: 20px;
+}
+
 </style>
