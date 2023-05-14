@@ -8,8 +8,13 @@
       <div class="about-section">
         <about-section :description="repository.Desc" />
       </div>
-      <div class="revisions-selection-container">
-        <revisions-selection :username="username" :reponame="reponame" />
+      <div class="top-bar">
+        <div class="revisions-selection-container">
+          <revisions-selection :username="username" :reponame="reponame" />
+        </div>
+        <div class="code-dropdown-container">
+          <code-dropdown :username="username" :reponame="reponame" />
+        </div>
       </div>
       <div class="git-blame-tree">
         <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" :revision="revision" />
@@ -25,6 +30,7 @@ import GitBlameTree from '@/components/GitBlameTree.vue';
 import RepoNameLine from '@/components/RepoNameLine.vue';
 import AboutSection from '@/components/AboutSection.vue';
 import RevisionsSelection from '@/components/RevisionsSelection.vue';
+import CodeDropdown from '@/components/CodeDropDown.vue';
 export default {
   name: 'RepoView',
   components: {
@@ -32,6 +38,7 @@ export default {
     GitBlameTree,
     AboutSection,
     RevisionsSelection,
+    CodeDropdown,
   },
   data() {
     return {
@@ -120,5 +127,13 @@ export default {
 
 .revisions-selection-container {
   margin-top: 20px;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 </style>
