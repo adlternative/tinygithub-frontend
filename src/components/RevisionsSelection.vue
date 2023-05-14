@@ -10,16 +10,16 @@
         <div class="selection-items">
           <div v-if="selectionMode === 'branches'">
             <div v-for="branch in branches" :key="branch">
-              <div @click="onSelect(branch)">
+              <router-link class="router-link" :to="{ name: 'repo', params: { username: username, reponame: reponame }, query: { revision: branch } }">
                 <li>{{ branch }}</li>
-              </div>
+              </router-link>
             </div>
           </div>
           <div v-if="selectionMode === 'tags'">
             <div v-for="tag in tags" :key="tag">
-              <div @click="onSelect(tag)">
+              <router-link class="router-link" :to="{ name: 'repo', params: { username: username, reponame: reponame }, query: { revision: tag } }">
                 <li>{{ tag }}</li>
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
@@ -155,4 +155,10 @@ export default {
   .selection-items li:hover {
     background-color: #e8e8e8;
   }
+
+  .router-link {
+    color: black;
+    text-decoration: none;
+  }
+
 </style>
