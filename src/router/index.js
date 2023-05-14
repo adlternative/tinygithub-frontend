@@ -9,6 +9,7 @@ import UserHome from '../views/UserHome.vue'
 import RepoView from '../views/RepoView.vue'
 import TreeView from '../views/TreeView.vue'
 import BlobView from '../views/BlobView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 
 const routes = [{
     path: '/',
@@ -19,6 +20,12 @@ const routes = [{
     path: '/login',
     name: 'login',
     component: LoginView,
+  },
+
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterView,
   },
   {
     path: '/:username',
