@@ -10,6 +10,7 @@ import RepoView from '../views/RepoView.vue'
 import TreeView from '../views/TreeView.vue'
 import BlobView from '../views/BlobView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import LogoutView from '@/views/LogoutView.vue'
 
 const routes = [{
     path: '/',
@@ -21,7 +22,11 @@ const routes = [{
     name: 'login',
     component: LoginView,
   },
-
+  {
+    path: '/logout',
+    name: 'logout',
+    component: LogoutView,
+  },
   {
     path: '/register',
     name: 'register',
