@@ -35,6 +35,7 @@ export default {
         });
 
         console.log(response.data.message);
+        this.$router.push('/' + this.username);
       } catch (error) {
         if (error.response) {
           console.error('Request failed with status code:', error.response.status);
