@@ -27,16 +27,14 @@ export default {
     }
   },
   methods: {
-    async submitForm() {
-      try {
-        const response = await axios.post('/api/v2/auth/login', {
-          account: this.username,
-          password: this.password
-        });
-
+    submitForm() {
+      axios.post('/api/v2/auth/login', {
+        account: this.username,
+        password: this.password
+      }).then(response => {
         console.log(response.data.message);
         this.$router.push('/' + this.username);
-      } catch (error) {
+      }).catch(error => {
         if (error.response) {
           console.error('Request failed with status code:', error.response.status);
           console.error('Error message:', error.response.data.error);
@@ -45,7 +43,7 @@ export default {
           console.error('An error occurred:', error.message);
           this.$emit('show-error', error.message);
         }
-      }
+      })
     }
   }
 }
