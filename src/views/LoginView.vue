@@ -31,19 +31,25 @@ export default {
       axios.post('/api/v2/auth/login', {
         account: this.username,
         password: this.password
-      }).then(response => {
-        console.log(response.data.message);
-        this.$router.push('/' + this.username);
-      }).catch(error => {
-        if (error.response) {
-          console.error('Request failed with status code:', error.response.status);
-          console.error('Error message:', error.response.data.error);
-          this.$emit('show-error', error.response.data.error)
-        } else {
-          console.error('An error occurred:', error.message);
-          this.$emit('show-error', error.message);
-        }
+      }, {
+        withCredentials: true,
       })
+        .then(response => {
+          console.log(response.headers);
+          console.log(response.data.message);
+          console.log(this.$cookies.get("tinygithub-session"));
+
+          this.$router.push('/' + this.username);
+        }).catch(error => {
+          if (error.response) {
+            console.error('Request failed with status code:', error.response.status);
+            console.error('Error message:', error.response.data.error);
+            this.$emit('show-error', error.response.data.error)
+          } else {
+            console.error('An error occurred:', error.message);
+            this.$emit('show-error', error.message);
+          }
+        })
     }
   }
 }

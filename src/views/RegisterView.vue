@@ -39,9 +39,12 @@ export default {
           username: this.username,
           email: this.email,
           password: this.password
+        }, {
+          withCredentials: true,
         })
         .then((response) => {
           console.log(response)
+          console.log(this.$cookies.get("tinygithub-session"));
           this.$router.push('/' + this.username);
         })
         .catch((error) => {

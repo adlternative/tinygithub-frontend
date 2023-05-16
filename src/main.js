@@ -4,8 +4,9 @@ import {
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
+import VueCookies from 'vue-cookies';
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(VueCookies).mount('#app')
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_HOST
 axios.defaults.headers['Content-Type'] = 'application/json'
