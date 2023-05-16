@@ -1,20 +1,30 @@
 <template>
   <nav>
     <ul class="navbar-list">
-      <li>
-        <router-link to="/">
-          <img src="../assets/logo.png" class="navbar-logo">
-        </router-link>
-      </li>
+      <li> <router-link to="/"> <img src="../assets/logo.png" class="navbar-logo"> </router-link> </li>
       <li>
         <div class="navbar-right">
-          <router-link class="navbar-item" to="/login">Login</router-link>
-          <router-link class="navbar-item" to="/register">Register</router-link>
+          <router-link v-if="isLoggedIn" class="navbar-item" to="/logout">Logout</router-link>
+          <template v-else>
+            <router-link class="navbar-item" to="/login">Login</router-link>
+            <router-link class="navbar-item" to="/register">Register</router-link>
+          </template>
         </div>
       </li>
     </ul>
   </nav>
 </template>
+
+<script>
+export default {
+  data() {
+    return { isLoggedIn: false, };
+  },
+  mounted() {
+    const sessionCookie = this.$cookies.get("tinygithub-session");
+    if (sessionCookie) { this.isLoggedIn = true; }
+  },
+}; </script>
 
 <style>
 nav {
