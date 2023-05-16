@@ -11,9 +11,9 @@ export default {
   mounted() {
     axios.get('/api/v2/auth/logout', { withCredentials: true })
       .then((response) => {
-        console.log(response.headers);
-        console.log(document.cookie);
-        this.$cookies.remove("tinygithub-session")
+
+        this.$store.commit("deleteSession")
+
         console.log(response.data.message);
         this.$router.replace('/');
       })

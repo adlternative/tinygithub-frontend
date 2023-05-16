@@ -35,10 +35,9 @@ export default {
         withCredentials: true,
       })
         .then(response => {
-          console.log(response.headers);
           console.log(response.data.message);
-          console.log(this.$cookies.get("tinygithub-session"));
 
+          this.$store.commit("setSession")
           this.$router.push('/' + this.username);
         }).catch(error => {
           if (error.response) {

@@ -4,7 +4,7 @@
       <li> <router-link to="/"> <img src="../assets/logo.png" class="navbar-logo"> </router-link> </li>
       <li>
         <div class="navbar-right">
-          <router-link v-if="isLoggedIn" class="navbar-item" to="/logout">Logout</router-link>
+          <router-link v-if="isLogin" class="navbar-item" to="/logout">Logout</router-link>
           <template v-else>
             <router-link class="navbar-item" to="/login">Login</router-link>
             <router-link class="navbar-item" to="/register">Register</router-link>
@@ -16,14 +16,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  data() {
-    return { isLoggedIn: false, };
+  computed: {
+    ...mapGetters(["isLogin"])
   },
-  mounted() {
-    const sessionCookie = this.$cookies.get("tinygithub-session");
-    if (sessionCookie) { this.isLoggedIn = true; }
-  },
+
+
 }; </script>
 
 <style>
@@ -45,7 +45,8 @@ nav {
   height: 100%;
   display: flex;
   align-items: center;
-  font-size: 28px; /* 增加字体大小 */
+  font-size: 28px;
+  /* 增加字体大小 */
 }
 
 .navbar-list {
