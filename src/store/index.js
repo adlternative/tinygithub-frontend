@@ -6,7 +6,7 @@ import {
 export default createStore({
   state: {
     token: '',
-    islogin: false,
+    islogin: cookie.get("tinygithub-session") !== null,
   },
   getters: {
     isLogin(state) {
