@@ -70,29 +70,32 @@ export default {
 <style scoped>
 .repositories {
   position: fixed;
-  top: 80px;
+  top: 10%;
   right: 0;
-  bottom: 0;
+  bottom: 10%;
   background-color: #fff;
 
-  float: right;
   margin-right: 10%;
   width: 70%;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .repositories-header {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
+  padding: 10px;
 }
 
 .repositories-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2px;
 }
 
 .repository-widget {
-  width: 100%;
+  padding: 10px;
 }
 </style>

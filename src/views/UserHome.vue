@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoaded" class="user-home">
-    <UserWidget :username="username" :email="email" />
-    <RepositoriesWidget :username="username" />
+    <UserWidget class="user-widget" :username="username" :email="email" />
+    <RepositoriesWidget class="repositories-widget" :username="username" />
   </div>
 </template>
 
@@ -67,5 +67,21 @@ export default {
 <style scoped>
 .user-home {
   display: flex;
+
 }
+
+.user-widget {
+  background-color: #f2f2f2;
+
+  top: 10%;
+  width: 18%;
+  left: 1%;
+  bottom: 5%;
+}
+
+.repositories-widget {
+  top: 10%;
+  bottom: 5%;
+}
+
 </style>

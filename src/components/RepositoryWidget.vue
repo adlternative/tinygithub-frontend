@@ -31,8 +31,8 @@ export default {
 <style scoped>
 .repository {
   background-color: #f2f2f2;
-  border-radius: 4px;
   height: 100px;
+  border-radius: 10px;
 }
 
 .repository-info {
