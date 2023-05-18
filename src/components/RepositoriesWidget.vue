@@ -1,6 +1,9 @@
 <template>
   <div class="repositories">
-    <div class="repositories-header">Repositories</div>
+    <div class="repositories-header">Repositories </div>
+    <div class="create-repo-container">
+      <router-link class="create-repo-button" :to="{ name: 'createrepo' }">Create</router-link>
+    </div>
     <div class="repositories-list">
       <div class="repository-widget" v-for="(repo, index) in repositories" :key="index">
         <RepositoryWidget :username="username" :name="repo.Name" :description="repo.Desc" />
@@ -83,6 +86,7 @@ export default {
 }
 
 .repositories-header {
+  display: inline-block;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -97,5 +101,18 @@ export default {
 
 .repository-widget {
   padding: 10px;
+}
+
+.create-repo-container {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.create-repo-button {
+  background-color: green;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
 }
 </style>

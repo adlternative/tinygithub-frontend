@@ -11,6 +11,7 @@ import TreeView from '../views/TreeView.vue'
 import BlobView from '../views/BlobView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LogoutView from '@/views/LogoutView.vue'
+import CreateRepositoryView from '@/views/CreateRepositoryView.vue'
 
 const routes = [{
     path: '/',
@@ -31,6 +32,15 @@ const routes = [{
     path: '/register',
     name: 'register',
     component: RegisterView,
+  },
+  {
+    path: '/repos',
+    name: 'repos',
+    children: [{
+      path: 'new',
+      name: 'createrepo',
+      component: CreateRepositoryView,
+    }],
   },
   {
     path: '/:username',
