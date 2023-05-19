@@ -10,7 +10,10 @@
       </div>
       <div class="top-bar">
         <revisions-selection class="revisions-selection-container" :username="username" :reponame="reponame" />
-        <code-dropdown class="code-dropdown-container" :username="username" :reponame="reponame" />
+        <div class="button-container">
+          <button class="delete-button" @click="confirmDelete">Delete</button>
+          <code-dropdown class="code-dropdown-container" :username="username" :reponame="reponame" />
+        </div>
       </div>
       <git-blame-tree class="git-blame-tree" :username="username" :reponame="reponame" :treepath="'/'"
         :revision="revision" />
@@ -80,7 +83,20 @@ export default {
           }
           this.isLoaded = true;
         });
-    }
+    },
+    confirmDelete() {
+      if (confirm("do you really want to delete this repository?")) {
+        axios.post(`/api/v2/repos/delete`, { reponame: this.reponame }, { withCredentials: true })
+          .then(response => {
+            console.log(response.data)
+            // 删除成功，跳转到仓库列表页面
+            this.$router.push({ name: 'home' });
+          })
+          .catch(error => {
+            this.$emit('show-error', error.response.data.error)
+          });
+      }
+    },
   },
   computed: {
     username() {
@@ -133,5 +149,26 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.code-dropdown-container {
+  margin-right: 10px;
 }
 </style>
