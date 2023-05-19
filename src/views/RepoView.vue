@@ -9,16 +9,11 @@
         <about-section :description="repository.Desc" />
       </div>
       <div class="top-bar">
-        <div class="revisions-selection-container">
-          <revisions-selection :username="username" :reponame="reponame" />
-        </div>
-        <div class="code-dropdown-container">
-          <code-dropdown :username="username" :reponame="reponame" />
-        </div>
+        <revisions-selection class="revisions-selection-container" :username="username" :reponame="reponame" />
+        <code-dropdown class="code-dropdown-container" :username="username" :reponame="reponame" />
       </div>
-      <div class="git-blame-tree">
-        <git-blame-tree :username="username" :reponame="reponame" :treepath="'/'" :revision="revision" />
-      </div>
+      <git-blame-tree class="git-blame-tree" :username="username" :reponame="reponame" :treepath="'/'"
+        :revision="revision" />
     </div>
   </div>
 </template>
