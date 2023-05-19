@@ -39,6 +39,7 @@ export default {
     return {
       isLoaded: false,
       revision: '',
+      repository: null,
     }
   },
   created() {
@@ -62,7 +63,7 @@ export default {
 
       axios.get(`/api/v2/${this.$route.params.username}/${this.$route.params.reponame}`)
         .then(response => {
-          // 从响应中获取邮箱数据
+          // 从响应中获取仓库数据
           this.isLoaded = true;
           this.repository = response.data.repo
         })
@@ -108,7 +109,9 @@ export default {
 }
 
 .repo-name-line {
+  display: flex;
   flex-grow: 1;
+  align-items: center;
 }
 
 .about-section {
