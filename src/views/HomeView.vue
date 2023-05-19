@@ -57,6 +57,7 @@ export default {
 }
 
 .logo {
+  place-items: center;
   width: 250px;
   height: 250px;
   margin-bottom: 300px;

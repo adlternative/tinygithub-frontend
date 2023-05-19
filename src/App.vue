@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <nav-bar />
-    <div class="error-container">
-      <error-view v-if="shouldShowError" :message="errorMessage" @hide-error="errorMessage = ''" />
-    </div>
-    <router-view @show-error="errorMessage = $event" />
+  <nav-bar />
+  <div class="error-container">
+    <error-view v-if="shouldShowError" :message="errorMessage" @hide-error="errorMessage = ''" />
   </div>
+  <router-view @show-error="errorMessage = $event" />
 </template>
 <script>
 import NavBar from '@/components/NavBar.vue';

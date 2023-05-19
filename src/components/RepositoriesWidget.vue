@@ -4,11 +4,13 @@
     <div class="create-repo-container">
       <router-link class="create-repo-button" :to="{ name: 'createrepo' }">Create</router-link>
     </div>
-    <div class="repositories-list">
-      <div class="repository-widget" v-for="(repo, index) in repositories" :key="index">
-        <RepositoryWidget :username="username" :name="repo.Name" :description="repo.Desc" />
-      </div>
-    </div>
+    <DynamicScroller :items="repositories" :min-item-size="20" class="scroller">
+      <template v-slot="{ item, index, active }">
+        <DynamicScrollerItem :item="item" :active="active" :data-index="index">
+          <RepositoryWidget :username="username" :name="item.Name" :description="item.Desc" />
+        </DynamicScrollerItem>
+      </template>
+    </DynamicScroller>
   </div>
 </template>
 
@@ -50,7 +52,12 @@ export default {
         .then(response => {
           // 从响应中获取邮箱数据
           this.isLoaded = true;
-          this.repositories = response.data.repositories
+
+          response.data.repositories.forEach((repo, i) => {
+            const newRepo = { ...repo };
+            newRepo.id = i;
+            this.repositories.push(newRepo);
+          })
         })
         .catch(error => {
           if (error.response) {
@@ -76,6 +83,7 @@ export default {
   top: 10%;
   right: 0;
   bottom: 10%;
+
   background-color: #fff;
 
   margin-right: 10%;
@@ -114,5 +122,11 @@ export default {
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
+}
+
+.scroller {
+  height: 100%;
+  overflow: scroll;
+  overflow-y: auto;
 }
 </style>
