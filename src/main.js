@@ -13,4 +13,4 @@ createApp(App).use(router).use(VueCookies).use(store).use(VueVirtualScroller).mo
 axios.defaults.baseURL = process.env.VUE_APP_BASE_HOST
 axios.defaults.headers['Content-Type'] = 'application/json'
 
-window.GitCloneURL = process.env.VUE_APP_BASE_HOST
+window.GitCloneURL = process.env.VUE_APP_GIT_CLONE_URL
