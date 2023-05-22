@@ -10,7 +10,7 @@ import VueVirtualScroller from 'vue-virtual-scroller'
 
 createApp(App).use(router).use(VueCookies).use(store).use(VueVirtualScroller).mount('#app')
 
-axios.defaults.baseURL = process.env.VUE_APP_BASE_HOST
+axios.defaults.baseURL = process.env.VUE_APP_BASE_HOST === '' ? 'http://localhost' : 'http://' + process.env.VUE_APP_GIT_CLONE_URL;
 axios.defaults.headers['Content-Type'] = 'application/json'
 
-window.GitCloneURL = process.env.VUE_APP_GIT_CLONE_URL
+window.GitCloneURL = process.env.VUE_APP_GIT_CLONE_URL === '' ? 'http://localhost' : 'http://' + process.env.VUE_APP_GIT_CLONE_URL;
